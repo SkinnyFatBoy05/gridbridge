@@ -1,0 +1,16 @@
+version: 1
+canonical_units:
+  power: kW
+  energy: kWh
+  timestamp: UTC
+sources:
+  meter:
+    natural_key: [meter_id, channel, interval_start_utc]
+  gis:
+    natural_key: [asset_id]
+  scada:
+    natural_key: [point_id, event_time_utc, sequence_number]
+  der:
+    natural_key: [der_id]
+  market:
+    natural_key: [region, interval_start_utc, revision]

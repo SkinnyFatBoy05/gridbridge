@@ -5,6 +5,7 @@ from __future__ import annotations
 from datetime import datetime
 from enum import StrEnum
 from pathlib import Path
+from typing import Any
 
 from pydantic import BaseModel, ConfigDict
 
@@ -77,3 +78,26 @@ class QuarantineRecord(BaseModel):
     payload_preview: str
     payload_fingerprint: str
     source_file_hash: str
+
+
+class DatasetProfile(BaseModel):
+    """Compact, serializable source health summary."""
+
+    model_config = ConfigDict(frozen=True)
+
+    source: SourceName
+    row_count: int
+    columns: list[str]
+    null_counts: dict[str, int]
+    distinct_counts: dict[str, int]
+    timestamp_min: str | None = None
+    timestamp_max: str | None = None
+
+
+class ValidationOutcome(BaseModel):
+    """Accepted rows and the evidence explaining every rejected row."""
+
+    model_config = ConfigDict(arbitrary_types_allowed=True)
+
+    valid: Any
+    quarantined: list[QuarantineRecord]
