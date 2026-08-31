@@ -1,0 +1,22 @@
+[
+  {
+    "reason_code": "METER_DUPLICATE_INTERVAL",
+    "source": "meter"
+  },
+  {
+    "reason_code": "GIS_DANGLING_NODE",
+    "source": "gis"
+  },
+  {
+    "reason_code": "SCADA_BAD_QUALITY",
+    "source": "scada"
+  },
+  {
+    "reason_code": "DER_UNIT_UNSUPPORTED",
+    "source": "der"
+  },
+  {
+    "reason_code": "MARKET_INVALID_REGION",
+    "source": "market"
+  }
+]

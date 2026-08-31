@@ -1,0 +1,74 @@
+{
+  "features": [
+    {
+      "geometry": {
+        "coordinates": [
+          151.2093,
+          -33.8688
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "asset_id": "SUB-001",
+        "asset_type": "substation",
+        "from_node": null,
+        "nominal_voltage_v": 11000,
+        "rated_capacity_kva": 5000,
+        "status": "energized",
+        "to_node": "N-SUB"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          [
+            151.2093,
+            -33.8688
+          ],
+          [
+            151.21,
+            -33.8695
+          ]
+        ],
+        "type": "LineString"
+      },
+      "properties": {
+        "asset_id": "LINE-001",
+        "asset_type": "line",
+        "from_node": "N-SUB",
+        "nominal_voltage_v": 11000,
+        "rated_capacity_kva": 2000,
+        "status": "energized",
+        "to_node": "N-001"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
+          [
+            151.21,
+            -33.8695
+          ],
+          [
+            151.211,
+            -33.87
+          ]
+        ],
+        "type": "LineString"
+      },
+      "properties": {
+        "asset_id": "LINE-DANGLING",
+        "asset_type": "line",
+        "from_node": "N-001",
+        "nominal_voltage_v": 415,
+        "rated_capacity_kva": 100,
+        "status": "energized",
+        "to_node": "N-MISSING"
+      },
+      "type": "Feature"
+    }
+  ],
+  "type": "FeatureCollection"
+}
