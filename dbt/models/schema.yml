@@ -1,0 +1,32 @@
+version: 2
+models:
+  - name: stg_meter_intervals
+    description: Accepted meter intervals normalized to UTC and kWh.
+    columns:
+      - name: meter_id
+        data_tests: [not_null]
+      - name: feeder_id
+        data_tests: [not_null]
+      - name: interval_start_utc
+        data_tests: [not_null]
+      - name: energy_kwh
+        data_tests: [not_null]
+  - name: int_feeder_interval_load
+    description: Five-minute feeder load derived from interval energy.
+    columns:
+      - name: feeder_id
+        data_tests: [not_null]
+      - name: interval_start_utc
+        data_tests: [not_null]
+      - name: energy_kwh
+        data_tests: [not_null]
+  - name: fct_flex_interval_candidates
+    description: Explainable market and capacity inputs for advisory flex gating.
+    columns:
+      - name: feeder_id
+        data_tests: [not_null]
+      - name: interval_start_utc
+        data_tests: [not_null]
+      - name: price_aud_per_mwh
+        data_tests: [not_null]
+

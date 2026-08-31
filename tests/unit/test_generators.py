@@ -2,6 +2,8 @@ import hashlib
 import json
 from pathlib import Path
 
+import polars as pl
+
 from gridbridge.generators.sources import generate_sources
 from gridbridge.models import SourceName
 
@@ -37,3 +39,13 @@ def test_generate_sources_documents_known_defects(tmp_path: Path) -> None:
     }
     assert "METER_DUPLICATE_INTERVAL" in {defect["reason_code"] for defect in defects}
     assert "GIS_DANGLING_NODE" in {defect["reason_code"] for defect in defects}
+
+
+def test_meter_source_carries_connection_and_feeder_identifiers(tmp_path: Path) -> None:
+    """Interval facts must join to the network through declared source identifiers."""
+    sources = generate_sources(tmp_path, seed=42, meter_rows=288)
+
+    frame = pl.read_parquet(sources[SourceName.METER][0])
+
+    assert frame["connection_point_id"].null_count() == 0
+    assert frame["feeder_id"].unique().to_list() == ["FDR-001"]

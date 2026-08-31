@@ -1,0 +1,13 @@
+name: gridbridge
+version: 1.0.0
+config-version: 2
+profile: gridbridge
+model-paths: [models]
+test-paths: [tests]
+clean-targets: [target, dbt_packages]
+models:
+  gridbridge:
+    +materialized: table
+    staging:
+      +materialized: view
+

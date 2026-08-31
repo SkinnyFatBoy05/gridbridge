@@ -1,0 +1,9 @@
+gridbridge:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: "{{ env_var('GRIDBRIDGE_DUCKDB_PATH') }}"
+      schema: main
+      threads: 2
+

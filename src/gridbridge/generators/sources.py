@@ -35,6 +35,8 @@ def _meter_rows(count: int, seed: int) -> list[dict[str, object]]:
                 "source_record_id": f"MTR-{index + 1:06d}",
                 "meter_id": f"M{index % 12 + 1:03d}",
                 "nmi": f"NMI{index % 12 + 1:08d}",
+                "connection_point_id": f"CP-{index % 12 + 1:03d}",
+                "feeder_id": "FDR-001",
                 "channel": "E1",
                 "interval_start_local": timestamp.astimezone(
                     ZoneInfo("Australia/Sydney")

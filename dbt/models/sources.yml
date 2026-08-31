@@ -1,0 +1,11 @@
+version: 2
+sources:
+  - name: gridbridge
+    schema: main
+    description: Canonical synthetic utility facts loaded by the Python onboarding stages.
+    tables:
+      - name: meter_intervals
+      - name: scada_observations
+      - name: der_units
+      - name: market_prices
+

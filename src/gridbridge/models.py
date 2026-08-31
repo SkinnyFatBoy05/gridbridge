@@ -124,3 +124,13 @@ class ReconciliationResult(BaseModel):
     quarantined: int
     loaded: int
     balanced: bool
+
+
+class DbtResult(BaseModel):
+    """Captured dbt invocation evidence for pipeline summaries."""
+
+    model_config = ConfigDict(frozen=True)
+
+    success: bool
+    command: str
+    output: str
