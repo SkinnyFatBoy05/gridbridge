@@ -25,7 +25,7 @@ def _write_json(path: Path, payload: object) -> None:
 
 def _meter_rows(count: int, seed: int) -> list[dict[str, object]]:
     rng = Random(seed)
-    start = datetime(2026, 8, 30, tzinfo=UTC)
+    start = datetime(2026, 8, 31, tzinfo=UTC)
     rows: list[dict[str, object]] = []
     for index in range(count):
         timestamp = start + timedelta(minutes=5 * index)
@@ -77,6 +77,19 @@ def _write_gis(path: Path) -> None:
                 "status": "energized",
             },
             "geometry": {"type": "Point", "coordinates": [151.2093, -33.8688]},
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "asset_id": "NODE-001",
+                "asset_type": "node",
+                "from_node": None,
+                "to_node": "N-001",
+                "nominal_voltage_v": 11000,
+                "rated_capacity_kva": 2000,
+                "status": "energized",
+            },
+            "geometry": {"type": "Point", "coordinates": [151.21, -33.8695]},
         },
         {
             "type": "Feature",
@@ -157,6 +170,7 @@ def _write_der(path: Path) -> None:
         "source_record_id",
         "der_id",
         "connection_point_id",
+        "feeder_id",
         "technology_type",
         "nameplate_value",
         "nameplate_unit",
@@ -165,9 +179,42 @@ def _write_der(path: Path) -> None:
         "commissioned_date",
     ]
     rows = [
-        ["DER-ROW-001", "DER-001", "CP-001", "solar_pv", 8.0, "kW", 5.0, "ABC", "2024-05-01"],
-        ["DER-ROW-002", "DER-002", "CP-002", "battery", 0.012, "MW", 10.0, "ABC", "2025-11-12"],
-        ["DER-ROW-BAD", "DER-003", "CP-MISSING", "solar_pv", 6.0, "MVA", 8.0, "X", "2026-02-14"],
+        [
+            "DER-ROW-001",
+            "DER-001",
+            "CP-001",
+            "FDR-001",
+            "solar_pv",
+            8.0,
+            "kW",
+            5.0,
+            "ABC",
+            "2024-05-01",
+        ],
+        [
+            "DER-ROW-002",
+            "DER-002",
+            "CP-002",
+            "FDR-001",
+            "battery",
+            0.012,
+            "MW",
+            10.0,
+            "ABC",
+            "2025-11-12",
+        ],
+        [
+            "DER-ROW-BAD",
+            "DER-003",
+            "CP-MISSING",
+            "FDR-001",
+            "solar_pv",
+            6.0,
+            "MVA",
+            8.0,
+            "X",
+            "2026-02-14",
+        ],
     ]
     with path.open("w", encoding="utf-8", newline="") as handle:
         writer = csv.writer(handle, lineterminator="\n")

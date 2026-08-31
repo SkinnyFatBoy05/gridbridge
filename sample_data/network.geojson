@@ -22,6 +22,25 @@
     {
       "geometry": {
         "coordinates": [
+          151.21,
+          -33.8695
+        ],
+        "type": "Point"
+      },
+      "properties": {
+        "asset_id": "NODE-001",
+        "asset_type": "node",
+        "from_node": null,
+        "nominal_voltage_v": 11000,
+        "rated_capacity_kva": 2000,
+        "status": "energized",
+        "to_node": "N-001"
+      },
+      "type": "Feature"
+    },
+    {
+      "geometry": {
+        "coordinates": [
           [
             151.2093,
             -33.8688

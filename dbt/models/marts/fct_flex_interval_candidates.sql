@@ -10,5 +10,4 @@ select
     price.intervention
 from {{ ref('int_feeder_interval_load') }} as load
 left join {{ ref('int_der_capacity') }} as der using (feeder_id)
-left join {{ ref('stg_market_prices') }} as price using (interval_start_utc)
-
+inner join {{ ref('stg_market_prices') }} as price using (interval_start_utc)

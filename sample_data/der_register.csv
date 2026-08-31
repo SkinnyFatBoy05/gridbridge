@@ -1,4 +1,4 @@
-source_record_id,der_id,connection_point_id,technology_type,nameplate_value,nameplate_unit,export_limit_kw,phase,commissioned_date
-DER-ROW-001,DER-001,CP-001,solar_pv,8.0,kW,5.0,ABC,2024-05-01
-DER-ROW-002,DER-002,CP-002,battery,0.012,MW,10.0,ABC,2025-11-12
-DER-ROW-BAD,DER-003,CP-MISSING,solar_pv,6.0,MVA,8.0,X,2026-02-14
+source_record_id,der_id,connection_point_id,feeder_id,technology_type,nameplate_value,nameplate_unit,export_limit_kw,phase,commissioned_date
+DER-ROW-001,DER-001,CP-001,FDR-001,solar_pv,8.0,kW,5.0,ABC,2024-05-01
+DER-ROW-002,DER-002,CP-002,FDR-001,battery,0.012,MW,10.0,ABC,2025-11-12
+DER-ROW-BAD,DER-003,CP-MISSING,FDR-001,solar_pv,6.0,MVA,8.0,X,2026-02-14
