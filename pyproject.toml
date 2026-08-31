@@ -31,6 +31,7 @@ dev = [
   "mypy>=1.17,<2",
   "pytest>=8.4,<10",
   "ruff>=0.12,<1",
+  "types-networkx>=3.6,<4",
   "types-pyyaml>=6.0,<7",
 ]
 
@@ -52,4 +53,3 @@ select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]
 python_version = "3.12"
 strict = true
 packages = ["gridbridge"]
-
