@@ -29,6 +29,7 @@ from gridbridge.pipeline.reconcile import reconcile_source
 from gridbridge.pipeline.warehouse import Warehouse
 from gridbridge.quality.profile import profile_frame
 from gridbridge.quality.validate import validate_source
+from gridbridge.report.render import render_report
 from gridbridge.security.evidence import build_manifest
 from gridbridge.topology.validate import TopologyResult, validate_topology
 
@@ -233,20 +234,20 @@ def _flex_from_mart(
         ).fetchone()
     if not scada_row or scada_row[0] is None:
         raise PipelineExecutionError("no accepted GOOD SCADA observation is available")
-    observed_at = scada_row[0]
+    observed_at = scada_row[0].astimezone(UTC)
     recommendations: list[FlexRecommendation] = []
     for feeder_id, interval, load_kw, der_kw, price in candidates:
         recommendations.append(
             recommend_flex(
                 FlexInputs(
                     feeder_id=feeder_id,
-                    interval_start_utc=interval,
+                    interval_start_utc=interval.astimezone(UTC),
                     net_load_kw=load_kw,
                     eligible_der_kw=der_kw,
                     transformer_capacity_kva=2_000.0,
                     market_price_aud_per_mwh=price,
                     scada_observed_at_utc=observed_at,
-                    evaluation_time_utc=interval,
+                    evaluation_time_utc=interval.astimezone(UTC),
                     topology_valid=topology.valid,
                 ),
                 config,
@@ -342,7 +343,7 @@ def run_demo(
         if any(summary.quarantined for summary in source_summaries) or not topology.valid
         else RunStatus.SUCCESS
     )
-    report_path = run_dir / "run-summary.json"
+    report_path = run_dir / "report.html"
     summary = PipelineSummary(
         run_id=run_id,
         parent_run_id=parent_run_id,
@@ -366,6 +367,9 @@ def run_demo(
         reconciliation_balanced=all(item.balanced for item in reconciliations),
         dbt_success=True,
     )
-    report_path.write_text(summary.model_dump_json(indent=2), encoding="utf-8")
+    report_path.with_name("run-summary.json").write_text(
+        summary.model_dump_json(indent=2), encoding="utf-8"
+    )
+    render_report(summary, report_path)
     _record_run_complete(warehouse, run_id, status, completed_at)
     return summary

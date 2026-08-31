@@ -41,7 +41,8 @@ def _print_summary(summary: object) -> None:
     typer.echo("reconciliation: balanced")
     typer.echo(f"accepted: {summary.total_accepted} | quarantined: {summary.total_quarantined}")
     typer.echo(f"warehouse: {summary.warehouse_path}")
-    typer.echo(f"evidence: {summary.report_path}")
+    typer.echo(f"report: {summary.report_path}")
+    typer.echo(f"evidence: {summary.report_path.with_name('run-summary.json')}")
 
 
 @app.command()
