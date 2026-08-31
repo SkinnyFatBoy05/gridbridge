@@ -101,3 +101,26 @@ class ValidationOutcome(BaseModel):
 
     valid: Any
     quarantined: list[QuarantineRecord]
+
+
+class LoadResult(BaseModel):
+    """Observable effect of one idempotent canonical load."""
+
+    model_config = ConfigDict(frozen=True)
+
+    inserted: int
+    updated: int
+    unchanged: int
+
+
+class ReconciliationResult(BaseModel):
+    """Per-source accounting from landed through loaded rows."""
+
+    model_config = ConfigDict(frozen=True)
+
+    source: SourceName
+    landed: int
+    accepted: int
+    quarantined: int
+    loaded: int
+    balanced: bool
