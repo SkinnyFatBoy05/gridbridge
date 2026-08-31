@@ -1,0 +1,14 @@
+.git
+.github
+.venv
+.worktrees
+work
+dist
+docs
+tests
+sample_data
+__pycache__
+*.pyc
+*.duckdb
+*.parquet
+

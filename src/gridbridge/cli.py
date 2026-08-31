@@ -7,6 +7,7 @@ from typing import Annotated
 
 import typer
 
+from gridbridge.benchmark import run_meter_benchmark
 from gridbridge.generators.sources import generate_sources
 from gridbridge.pipeline.run import run_demo
 
@@ -71,6 +72,26 @@ def replay(
     """Replay source data while preserving parent-run lineage."""
 
     _print_summary(run_demo(workspace, config, parent_run_id=parent_run_id))
+
+
+@app.command()
+def benchmark(
+    rows: Annotated[
+        int, typer.Option(min=1, help="Interval rows to generate and process.")
+    ] = 1_000_000,
+    output: Annotated[Path, typer.Option(help="Generated benchmark workspace.")] = Path(
+        "work/benchmark"
+    ),
+    seed: Annotated[int, typer.Option(help="Deterministic data seed.")] = 42,
+) -> None:
+    """Run the reproducible interval-scale benchmark."""
+
+    result = run_meter_benchmark(output, rows=rows, seed=seed)
+    typer.echo(f"GridBridge benchmark: {result.rows:,} interval rows")
+    typer.echo(f"accepted: {result.accepted:,} | quarantined: {result.quarantined:,}")
+    typer.echo(f"load throughput: {result.rows_per_second:,.1f} rows/s")
+    typer.echo(f"aggregation query: {result.query_milliseconds:.2f} ms")
+    typer.echo(f"evidence: {result.evidence_path}")
 
 
 if __name__ == "__main__":
